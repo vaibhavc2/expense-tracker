@@ -5,6 +5,9 @@ const userResolver = {
     users: async () => {
       return users;
     },
+    user: async (_: any, { userId }: { userId: string }) => {
+      return users.find((user) => user._id === userId);
+    },
   },
   Mutation: {},
 };
