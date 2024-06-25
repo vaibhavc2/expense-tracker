@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IUser } from "./user.model.js";
+import { IUser } from "./user.model";
 
 enum PaymentType {
   Cash = "cash",
@@ -12,7 +12,7 @@ enum Category {
   Investments = "investments",
 }
 
-interface ITransaction extends mongoose.Document {
+export interface ITransaction extends mongoose.Document {
   userId: IUser["_id"] | mongoose.Types.ObjectId;
   amount: number;
   description: string;
