@@ -1,4 +1,4 @@
-import { ITransaction, IUser } from "@/models";
+import { IUser } from "@/models";
 import { Request as ExpressRequest } from "express";
 import { PassportContext } from "graphql-passport";
 
@@ -6,8 +6,9 @@ import { PassportContext } from "graphql-passport";
 // The AppContext interface is used to define the context parameter in the resolvers. The context parameter is used to access the user object in the resolvers.
 
 export interface UserContext extends PassportContext<IUser, ExpressRequest> {}
-export interface TransactionContext
-  extends PassportContext<ITransaction, ExpressRequest> {}
+
+// export interface TransactionContext
+//   extends PassportContext<ITransaction, ExpressRequest> {}
 
 /* ******************************************************************** */
 
