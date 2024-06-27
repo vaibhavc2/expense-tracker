@@ -67,7 +67,7 @@ app.use(
     await server.start();
 
     app.use(
-      "/",
+      "/graphql",
       cors({
         origin: process.env.FRONTEND_URI || "http://localhost:3000",
         credentials: true,
@@ -89,6 +89,6 @@ app.use(
   }
 })();
 
-const url = `http://localhost:${port}`;
+const url = `http://localhost:${port}/graphql`;
 
 console.log(`🚀  Server ready at: ${url}`);
