@@ -1,7 +1,6 @@
 import { User } from "@/models";
 import { LoginInput, SignUpInput, UserContext } from "@/types/global";
 import { hashPassword } from "@/utils/password.util";
-import { response as res } from "express";
 
 const avatarUrl = process.env.AVATAR_URL as string;
 
@@ -77,6 +76,7 @@ const userResolver = {
         const user = await new User({
           username,
           name,
+          gender,
           password: hashedPassword,
           profilePicture,
         }).save();
@@ -144,18 +144,18 @@ const userResolver = {
       }
     },
 
-    logout: async (parent: unknown, data: unknown, context: UserContext) => {
+    logout: async (parent: unknown, data: unknown, context: any) => {
       try {
         await context.logout();
 
-        context.req.session?.destroy((err) => {
+        context.req.session?.destroy((err: unknown) => {
           if (err) {
             console.error("Error destroying session: ", err);
             throw new Error("Error destroying session");
           }
         });
 
-        res.clearCookie("connect.sid");
+        context.res.clearCookie("connect.sid");
 
         return { message: "Logged out successfully" };
       } catch (error) {

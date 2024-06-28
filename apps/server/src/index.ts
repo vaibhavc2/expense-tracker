@@ -69,7 +69,7 @@ app.use(
     app.use(
       "/graphql",
       cors({
-        origin: process.env.FRONTEND_URI || "http://localhost:3000",
+        origin: process.env.FRONTEND_URI || "http://localhost:5173",
         credentials: true,
       }),
       express.json(),
