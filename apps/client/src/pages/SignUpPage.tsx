@@ -1,7 +1,10 @@
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import InputField from "../components/InputField";
 import RadioButton from "../components/RadioButton";
+import { SIGN_UP } from "../graphql/mutations/user.mutation";
 
 const SignUpPage = () => {
   const [signUpData, setSignUpData] = useState({
@@ -11,25 +14,49 @@ const SignUpPage = () => {
     gender: "",
   });
 
+  const [signup, { loading }] = useMutation(SIGN_UP, {
+    refetchQueries: ["GetAuthUser"],
+  });
+
+  // console.log({ loading, error });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
 
-    if (type === "radio") {
-      setSignUpData((prevData) => ({
-        ...prevData,
-        gender: value,
-      }));
-    } else {
-      setSignUpData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setSignUpData((prevData) => {
+      if (type === "radio") {
+        return {
+          ...prevData,
+          gender: value,
+        };
+      } else {
+        return {
+          ...prevData,
+          [name]: value,
+        };
+      }
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(signUpData);
+    if (
+      !signUpData.name ||
+      !signUpData.username ||
+      !signUpData.password ||
+      !signUpData.gender
+    )
+      return toast.error("Please fill in all fields");
+    try {
+      await signup({
+        variables: {
+          input: signUpData,
+        },
+      });
+    } catch (error) {
+      console.error("Error signing up: ", error);
+      if (error instanceof Error) toast.error(error?.message);
+    }
   };
 
   return (
@@ -90,8 +117,9 @@ const SignUpPage = () => {
                 <button
                   type="submit"
                   className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black  focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={loading}
                 >
-                  Sign Up
+                  {loading ? "Loading..." : "Sign Up"}
                 </button>
               </div>
             </form>
