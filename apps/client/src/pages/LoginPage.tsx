@@ -34,7 +34,7 @@ const LoginPage = () => {
         },
       });
     } catch (error) {
-      console.error("Error logging in: ", error);
+      // console.error("Error logging in: ", error);
       if (error instanceof Error) toast.error(error?.message);
     }
   };

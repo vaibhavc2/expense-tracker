@@ -1,4 +1,10 @@
+import { useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
+import { CREATE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
+
 const TransactionForm = () => {
+  const [createTransaction, { loading }] = useMutation(CREATE_TRANSACTION);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -12,7 +18,26 @@ const TransactionForm = () => {
       location: formData.get("location"),
       date: formData.get("date"),
     };
-    console.log("transactionData", transactionData);
+
+    try {
+      if (
+        !transactionData.description ||
+        !transactionData.amount ||
+        !transactionData.date ||
+        !transactionData.paymentType ||
+        !transactionData.category
+      ) {
+        throw new Error("Please fill all the fields. (Location is optional)");
+      }
+      await createTransaction({ variables: { input: transactionData } });
+
+      form.reset();
+      toast.success("Transaction added successfully!");
+    } catch (error: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   return (
@@ -105,7 +130,7 @@ const TransactionForm = () => {
             className="block uppercase text-white text-xs font-bold mb-2"
             htmlFor="amount"
           >
-            Amount($)
+            Amount(₹)
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -131,7 +156,7 @@ const TransactionForm = () => {
             id="location"
             name="location"
             type="text"
-            placeholder="New York"
+            placeholder="Panjab"
           />
         </div>
 
@@ -159,8 +184,9 @@ const TransactionForm = () => {
           from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
 						disabled:opacity-70 disabled:cursor-not-allowed"
         type="submit"
+        disabled={loading}
       >
-        Add Transaction
+        {loading ? "Loading..." : "Add Transaction"}
       </button>
     </form>
   );

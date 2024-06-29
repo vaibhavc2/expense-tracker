@@ -23,7 +23,7 @@ const transactionResolver = {
 
         return transactions;
       } catch (error) {
-        console.error("Error getting transactions: ", error);
+        // console.error("Error getting transactions: ", error);
 
         if (error instanceof Error) {
           throw new Error(
@@ -47,13 +47,14 @@ const transactionResolver = {
 
         return transaction;
       } catch (error) {
-        console.error("Error getting transaction by ID: ", error);
+        // console.error("Error getting transaction by ID: ", error);
         throw new Error(
           "An error occurred getting the transaction by ID. Please try again.",
         );
       }
     },
   },
+
   Mutation: {
     createTransaction: async (
       parent: unknown,
@@ -68,7 +69,7 @@ const transactionResolver = {
 
         return newTransaction;
       } catch (error) {
-        console.error("Error creating transaction: ", error);
+        // console.error("Error creating transaction: ", error);
         throw new Error(
           "An error occurred creating the transaction. Please try again.",
         );
@@ -88,7 +89,7 @@ const transactionResolver = {
 
         return updatedTransaction;
       } catch (error) {
-        console.error("Error updating transaction: ", error);
+        // console.error("Error updating transaction: ", error);
         throw new Error(
           "An error occurred updating the transaction. Please try again.",
         );
@@ -104,7 +105,7 @@ const transactionResolver = {
 
         return { message: "Transaction deleted successfully." };
       } catch (error) {
-        console.error("Error deleting transaction: ", error);
+        // console.error("Error deleting transaction: ", error);
         throw new Error(
           "An error occurred deleting the transaction. Please try again.",
         );

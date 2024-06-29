@@ -41,11 +41,11 @@ const Card = ({ cardType }: { cardType: string }) => {
         </p>
         <p className="text-white flex items-center gap-1">
           <FaSackDollar />
-          Amount: $150
+          Amount: ₹150000
         </p>
         <p className="text-white flex items-center gap-1">
           <FaLocationDot />
-          Location: New York
+          Location: Panjab
         </p>
         <div className="flex justify-between items-center">
           <p className="text-xs text-black font-bold">21 Sep, 2001</p>

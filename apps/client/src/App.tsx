@@ -11,8 +11,8 @@ import TransactionPage from "./pages/TransactionPage";
 // import "./App.css";
 
 function App() {
-  const { loading, data, error } = useQuery(GET_AUTH_USER);
-  console.log({ loading, data, error });
+  const { data } = useQuery(GET_AUTH_USER);
+  // console.log({ loading, data, error });
   return (
     <>
       {data?.authUser && <Header />}

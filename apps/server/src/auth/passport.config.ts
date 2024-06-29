@@ -5,17 +5,17 @@ import passport from "passport";
 
 export const passportConfig = async () => {
   passport.serializeUser((user: any, done) => {
-    console.log("Serializing user...");
+    // console.log("Serializing user...");
     done(null, user._id);
   });
 
   passport.deserializeUser(async (id: string, done) => {
-    console.log("Deserializing user...");
+    // console.log("Deserializing user...");
     try {
       const user = await User.findById(id);
       done(null, user);
     } catch (err) {
-      console.error("Error deserializing user!\nError: ", err);
+      // console.error("Error deserializing user!\nError: ", err);
       return done(err);
     }
   });
@@ -33,7 +33,7 @@ export const passportConfig = async () => {
 
         done(null, user);
       } catch (error) {
-        console.error("Error authenticating user!\nError: ", error);
+        // console.error("Error authenticating user!\nError: ", error);
         return done(error);
       }
     }),

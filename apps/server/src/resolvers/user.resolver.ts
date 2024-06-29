@@ -13,7 +13,7 @@ const userResolver = {
       try {
         return await context.getUser();
       } catch (error) {
-        console.error("Error getting authenticated user: ", error);
+        // console.error("Error getting authenticated user: ", error);
 
         if (error instanceof Error) {
           throw new Error(
@@ -35,7 +35,7 @@ const userResolver = {
       try {
         return await User.findById(userId);
       } catch (error) {
-        console.error("Error getting user by ID: ", error);
+        // console.error("Error getting user by ID: ", error);
 
         if (error instanceof Error) {
           throw new Error(
@@ -85,7 +85,7 @@ const userResolver = {
 
         return user;
       } catch (error) {
-        console.error("Error signing up user: ", error);
+        // console.error("Error signing up user: ", error);
 
         // Type guard to check if error is an instance of Error
         if (error instanceof Error) {
@@ -127,7 +127,7 @@ const userResolver = {
 
         return user;
       } catch (error) {
-        console.error("Error logging in user: ", error);
+        // console.error("Error logging in user: ", error);
 
         // Type guard to check if error is an instance of Error
         if (error instanceof Error) {
@@ -150,7 +150,7 @@ const userResolver = {
 
         context.req.session?.destroy((err: unknown) => {
           if (err) {
-            console.error("Error destroying session: ", err);
+            // console.error("Error destroying session: ", err);
             throw new Error("Error destroying session");
           }
         });
@@ -159,7 +159,7 @@ const userResolver = {
 
         return { message: "Logged out successfully" };
       } catch (error) {
-        console.error("Error logging out user: ", error);
+        // console.error("Error logging out user: ", error);
 
         // Type guard to check if error is an instance of Error
         if (error instanceof Error) {

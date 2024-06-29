@@ -45,7 +45,7 @@ const HomePage = () => {
       return await logout();
       // TODO: clear cache and redirect to login page
     } catch (error) {
-      console.error("Error logging out: ", error);
+      // console.error("Error logging out: ", error);
       if (error instanceof Error) toast.error(error?.message);
     }
   };

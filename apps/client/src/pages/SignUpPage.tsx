@@ -54,7 +54,7 @@ const SignUpPage = () => {
         },
       });
     } catch (error) {
-      console.error("Error signing up: ", error);
+      // console.error("Error signing up: ", error);
       if (error instanceof Error) toast.error(error?.message);
     }
   };
